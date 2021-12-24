@@ -1,13 +1,13 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
-    name='pythonProject2',
-    version='',
-    package_dir={'': 'src'},
-    packages=find_packages(where='src'),
+    name='tf-eg',
+    version='0.01',
+    packages=['src'],
     url='',
     license='',
     author='nov11',
     author_email='',
-    description=''
+    description='code snippets',
+    install_requires=['tensorflow==2.4.1', 'tensorflow_datasets'],
 )
