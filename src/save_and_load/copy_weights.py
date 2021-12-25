@@ -25,8 +25,8 @@ if __name__ == '__main__':
         print('=================')
         print('before:', read_back)
         r_a = sess.graph.get_tensor_by_name('A:0')
-        for c in sess.graph.get_operations():
-            print(c.name)
+        # for c in sess.graph.get_operations():
+        #     print(c.name)
 
         # placeholder = tf.placeholder(dtype=r_a.dtype, shape=r_a.shape)
         # sess.run(tf.raw_ops.AssignVariableOp(resource=r_a, value=placeholder), feed_dict={placeholder: w_a})
@@ -38,8 +38,8 @@ if __name__ == '__main__':
         read_back = sess.run(sess.graph.get_operation_by_name('A/Read/ReadVariableOp').outputs[0])
         print('=================')
         print('after:', read_back)
-        for c in sess.graph.get_operations():
-            print(c.name)
+        # for c in sess.graph.get_operations():
+        #     print(c.name)
 
         shutil.rmtree(migrate_dir, ignore_errors=True)
 

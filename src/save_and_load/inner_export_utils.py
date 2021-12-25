@@ -3,7 +3,6 @@ import shutil
 
 from src.save_and_load import simple_model
 
-tf.disable_eager_execution()
 
 def do_save_model(export_dir, sess, ia, ib, out):
     builder = tf.saved_model.builder.SavedModelBuilder(export_dir)
@@ -36,14 +35,34 @@ def clean_directories(export_dir):
     shutil.rmtree(export_dir, ignore_errors=True)
 
 
-def create_model_and_save(export_dir):
+def create_base_model_and_save(export_dir):
+    return do_create_model_and_save(export_dir, model_maker=simple_model.make_base_model)
+
+
+def create_target_model_and_save(export_dir):
+    return do_create_model_and_save(export_dir, model_maker=simple_model.make_target_model)
+
+
+def create_dyn_emb_model_and_save(export_dir):
+    return do_create_model_and_save(export_dir, model_maker=simple_model.make_model_dyn_emb)
+
+
+def do_create_model_and_save(export_dir, model_maker):
     clean_directories(export_dir)
 
     with tf.Graph().as_default() as g:
-        ia, ib, out = simple_model.make_model()
+        ia, ib, out = model_maker()
 
         with tf.Session(graph=g) as sess:
             tf.global_variables_initializer().run()
 
             do_save_model(export_dir, sess, ia, ib, out)
             write_graph(export_dir, sess.graph)
+            saver = tf.train.Saver()
+            saver.save(sess, export_dir + '/ckpt')
+
+
+def show_op_names():
+    for c in tf.get_default_graph().get_operations():
+        if 'save' not in c.name:
+            print(c.name)

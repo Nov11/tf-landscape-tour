@@ -24,8 +24,8 @@ if __name__ == '__main__':
         w_a = sess.run(sess.graph.get_operation_by_name('A/Read/ReadVariableOp').outputs[0])
         print('w_a:', w_a)
         add = sess.run(sess.graph.get_tensor_by_name('Add:0'), feed_dict={
-            sess.graph.get_tensor_by_name('pa:0'): np.ones([1024]),
-            sess.graph.get_tensor_by_name('pb:0'): np.ones([1024]),
+            sess.graph.get_tensor_by_name('pa:0'): np.ones([1, 512]),
+            sess.graph.get_tensor_by_name('pb:0'): np.ones([1, 512]),
 
         })
         print('add:', add)
