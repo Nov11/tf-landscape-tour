@@ -5,8 +5,6 @@ from src.save_and_load import simple_model
 
 tf.disable_eager_execution()
 
-print("inner export utils")
-
 def do_save_model(export_dir, sess, ia, ib, out):
     builder = tf.saved_model.builder.SavedModelBuilder(export_dir)
     builder.add_meta_graph_and_variables(sess,
@@ -38,7 +36,7 @@ def clean_directories(export_dir):
     shutil.rmtree(export_dir, ignore_errors=True)
 
 
-def save_model(export_dir):
+def create_model_and_save(export_dir):
     clean_directories(export_dir)
 
     with tf.Graph().as_default() as g:

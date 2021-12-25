@@ -1,6 +1,9 @@
+import numpy as np
+
 import export_paths
 import inner_export_utils
 import tensorflow._api.v2.compat.v1 as tf
+import numpy as np
 
 tf.disable_eager_execution()
 
@@ -10,10 +13,10 @@ if __name__ == '__main__':
     inner_export_utils.clean_directories(export_dir)
 
     with tf.Graph().as_default() as g:
-        a = tf.Variable(initial_value=[100], name='A')
-        b = tf.Variable(initial_value=[4], name='B')
-        pa = tf.placeholder(dtype=tf.int32, shape=[1], name='pa')
-        pb = tf.placeholder(dtype=tf.int32, shape=[1], name='pb')
+        a = tf.Variable(initial_value=np.repeat(10, 1024), name='A', dtype=tf.int32)
+        b = tf.Variable(initial_value=np.arange(5000, 6024), name='B', dtype=tf.int32)
+        pa = tf.placeholder(dtype=tf.int32, shape=[1024], name='pa')
+        pb = tf.placeholder(dtype=tf.int32, shape=[1024], name='pb')
         ma = tf.multiply(a, pa)
         mb = tf.multiply(b, pb)
         add_op = tf.add(ma, mb, name='Add')
