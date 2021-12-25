@@ -9,5 +9,5 @@ setup(
     author='nov11',
     author_email='',
     description='code snippets',
-    install_requires=['tensorflow==2.4.1', 'tensorflow_datasets'],
+    install_requires=['tensorflow==2.4.1', 'tensorflow_datasets', 'tensorflow-recommenders-addons==0.2.0'],
 )
